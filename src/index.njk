@@ -1,0 +1,141 @@
+---
+layout: base.njk
+title: Home
+---
+
+<!-- HERO / PROFILE SECTION -->
+<section class="profile">
+  <div class="profile-photo-wrap">
+    <!--
+      TODO: Add your photo at src/assets/img/profile.jpg
+      Recommended: square crop, at least 400x400px
+    -->
+    <img
+      src="/assets/img/profile.jpg"
+      alt="{{ metadata.name }}"
+      class="profile-photo"
+      width="180"
+      height="180"
+      onerror="this.style.display='none'"
+    />
+  </div>
+
+  <div class="profile-info">
+    <h1 class="profile-name">{{ metadata.name }}</h1>
+    <p class="profile-title">{{ metadata.title }}</p>
+    <p class="profile-institution">{{ metadata.institution }}</p>
+
+    <!--
+      TODO: Replace placeholder text with your actual bio.
+      Keep it to 3-5 sentences. Plain prose, no LaTeX here.
+    -->
+    <p class="profile-bio">{{ metadata.description }}</p>
+
+    <div class="profile-links">
+      <!--
+        TODO: Add your CV at src/assets/cv/cv.pdf
+        The link below will work automatically once the file is in place.
+      -->
+      <a href="/assets/cv/cv.pdf" class="btn" target="_blank" rel="noopener">
+        CV (PDF)
+      </a>
+      <a href="{{ metadata.github }}" class="btn btn-secondary" target="_blank" rel="noopener">
+        GitHub
+      </a>
+      <a href="mailto:{{ metadata.email }}" class="btn btn-secondary">
+        Email
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- PAPERS & PUBLICATIONS -->
+<section class="papers" id="papers">
+  <h2>Papers &amp; Publications</h2>
+
+  <!--
+    TODO: For each paper, copy the block below.
+    PDF links can point to:
+      - A local static file: /assets/papers/yourpaper.pdf
+      - An arXiv abstract page: https://arxiv.org/abs/XXXX.XXXXX
+      - An arXiv direct PDF: https://arxiv.org/pdf/XXXX.XXXXX
+    Add the PDF to src/assets/papers/ for local hosting.
+    The `abstract` field can contain LaTeX inline math using $...$
+  -->
+
+  {% set papers = [
+    {
+      title: "TODO: Paper Title One",
+      authors: "Your Name, Collaborator Name",
+      venue: "Journal of Mathematics, 2024",
+      abstract: "TODO: Paste abstract here. You can use inline math like $f: M \\to N$ between manifolds.",
+      arxiv: "https://arxiv.org/abs/0000.00000",
+      pdf: ""
+    },
+    {
+      title: "TODO: Paper Title Two",
+      authors: "Your Name",
+      venue: "Preprint, 2025",
+      abstract: "TODO: Paste abstract here. Display math like $$\\int_M \\omega = 0$$ renders on its own line.",
+      arxiv: "",
+      pdf: "/assets/papers/paper2.pdf"
+    }
+  ] %}
+
+  {% if papers.length == 0 %}
+    <p class="muted">Publications will appear here.</p>
+  {% else %}
+    <ol class="paper-list">
+      {% for paper in papers %}
+      <li class="paper-item">
+        <div class="paper-title">{{ paper.title }}</div>
+        <div class="paper-authors">{{ paper.authors }}</div>
+        <div class="paper-venue">{{ paper.venue }}</div>
+        <details class="paper-abstract">
+          <summary>Abstract</summary>
+          <div class="abstract-body">{{ paper.abstract | md | safe }}</div>
+        </details>
+        <div class="paper-links">
+          {% if paper.arxiv %}
+            <a href="{{ paper.arxiv }}" target="_blank" rel="noopener" class="paper-link">arXiv</a>
+          {% endif %}
+          {% if paper.pdf %}
+            <a href="{{ paper.pdf }}" target="_blank" rel="noopener" class="paper-link">PDF</a>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+</section>
+
+<hr class="section-divider" />
+
+<!-- RECENT BLOG POSTS -->
+<section class="recent-posts">
+  <h2>Recent Posts</h2>
+  <ul class="post-list">
+    {% set recentPosts = collections.posts | reverse | first(3) %}
+    {% for post in recentPosts %}
+    <li class="post-list-item">
+      <a href="{{ post.url }}" class="post-list-title">{{ post.data.title }}</a>
+      <time class="post-list-date">{{ post.date | dateDisplay }}</time>
+      {% if post.data.summary %}
+        <p class="post-list-summary">{{ post.data.summary }}</p>
+      {% endif %}
+      {% if post.data.tags %}
+      <span class="post-tags">
+        {% for tag in post.data.tags %}
+          {% if tag != "posts" %}
+            <a href="/tags/{{ tag }}/" class="tag">{{ tag }}</a>
+          {% endif %}
+        {% endfor %}
+      </span>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  <a href="/blog/" class="more-link">All posts →</a>
+</section>

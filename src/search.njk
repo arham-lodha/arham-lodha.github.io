@@ -1,0 +1,23 @@
+---
+layout: base.njk
+title: Search
+permalink: /search/
+---
+
+<h1>Search</h1>
+<input
+  type="search"
+  id="search-input"
+  placeholder="Search posts…"
+  class="search-input"
+  aria-label="Search posts"
+  autofocus
+/>
+<div id="search-results" class="search-results" aria-live="polite"></div>
+
+<!-- Search index injected at build time -->
+<script>
+  window.__searchIndex = {{ collections.searchIndex | dump | safe }};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+<script src="/js/search.js"></script>

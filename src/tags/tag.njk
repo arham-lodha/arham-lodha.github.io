@@ -1,0 +1,24 @@
+---
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter: ["all", "tagList", "postsByTag", "searchIndex", "posts"]
+permalink: /tags/{{ tag }}/
+layout: base.njk
+title: "Tag: {{ tag }}"
+---
+
+<h1>Posts tagged <span class="tag tag-heading">{{ tag }}</span></h1>
+
+<ul class="post-list">
+  {% for post in collections[tag] | reverse %}
+  <li class="post-list-item">
+    <a href="{{ post.url }}" class="post-list-title">{{ post.data.title }}</a>
+    <time class="post-list-date">{{ post.date | dateDisplay }}</time>
+    {% if post.data.summary %}
+      <p class="post-list-summary">{{ post.data.summary }}</p>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
