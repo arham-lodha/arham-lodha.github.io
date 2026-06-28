@@ -17,6 +17,7 @@ permalink: /search/
 
 <!-- Search index injected at build time -->
 <script>
+  window.__pathPrefix = "{{ "/" | url }}";
   window.__searchIndex = {{ collections.searchIndex | dump | safe }};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>

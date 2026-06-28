@@ -28,6 +28,9 @@ jobs:
       - run: npm ci
 
       - run: npm run build
+        env:
+          # Repo is served at https://arham-lodha.github.io/personal-site/
+          ELEVENTY_PATH_PREFIX: /personal-site/
 
       - uses: actions/upload-pages-artifact@v3
         with:

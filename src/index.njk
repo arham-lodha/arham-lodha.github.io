@@ -43,33 +43,9 @@ title: Home
   <h2>Papers &amp; Publications</h2>
 
   <!--
-    TODO: For each paper, copy the block below.
-    PDF links can point to:
-      - A local static file: /assets/papers/yourpaper.pdf
-      - An arXiv abstract page: https://arxiv.org/abs/XXXX.XXXXX
-      - An arXiv direct PDF: https://arxiv.org/pdf/XXXX.XXXXX
-    Add the PDF to src/assets/papers/ for local hosting.
-    The `abstract` field can contain LaTeX inline math using $...$
+    Papers are defined in src/_data/papers.js (so LaTeX abstracts can be written
+    with normal single-backslash syntax). Add or edit entries there.
   -->
-
-  {% set papers = [
-    {
-      title: "TODO: Paper Title One",
-      authors: "Your Name, Collaborator Name",
-      venue: "Journal of Mathematics, 2024",
-      abstract: "TODO: Paste abstract here. You can use inline math like $f: M \\to N$ between manifolds.",
-      arxiv: "https://arxiv.org/abs/0000.00000",
-      pdf: ""
-    },
-    {
-      title: "TODO: Paper Title Two",
-      authors: "Your Name",
-      venue: "Preprint, 2025",
-      abstract: "TODO: Paste abstract here. Display math like $$\\int_M \\omega = 0$$ renders on its own line.",
-      arxiv: "",
-      pdf: "/assets/papers/paper2.pdf"
-    }
-  ] %}
 
   {% if papers.length == 0 %}
     <p class="muted">Publications will appear here.</p>

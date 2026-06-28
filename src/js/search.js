@@ -1,5 +1,9 @@
 (function () {
   const data = window.__searchIndex || [];
+  // Stored post URLs are root-relative ("/posts/…/"); prepend the pathPrefix
+  // root so links work when the site is served from a subpath.
+  const base = (window.__pathPrefix || "/").replace(/\/$/, "");
+  const withBase = (url) => base + url;
 
   const idx = lunr(function () {
     this.ref("url");
@@ -38,7 +42,7 @@
         const doc = byUrl[ref];
         return `
           <div class="search-result">
-            <a href="${doc.url}" class="search-result-title">${doc.title}</a>
+            <a href="${withBase(doc.url)}" class="search-result-title">${doc.title}</a>
             ${doc.summary ? `<p class="search-result-summary">${doc.summary}</p>` : ""}
             ${
               doc.tags

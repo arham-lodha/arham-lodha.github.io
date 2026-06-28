@@ -1,5 +1,6 @@
 const markdownIt = require("markdown-it");
 const markdownItKatex = require("@traptitech/markdown-it-katex");
+const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 const fs = require("fs");
 
 module.exports = function (eleventyConfig) {
@@ -7,6 +8,10 @@ module.exports = function (eleventyConfig) {
   const md = markdownIt({ html: true, linkify: true, typographer: true })
     .use(markdownItKatex);
   eleventyConfig.setLibrary("md", md);
+
+  // Rewrite root-relative URLs (href/src) to include pathPrefix at build time,
+  // so the site works when served from a subpath like /personal-site/.
+  eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
   // Pass through static assets
   eleventyConfig.addPassthroughCopy("src/css");
@@ -75,6 +80,8 @@ module.exports = function (eleventyConfig) {
   });
 
   return {
+    // "/" for local dev; the deploy workflow sets ELEVENTY_PATH_PREFIX=/personal-site/
+    pathPrefix: process.env.ELEVENTY_PATH_PREFIX || "/",
     dir: {
       input: "src",
       output: "_site",

@@ -1,17 +1,18 @@
 /* ===== FONTS: self-hosted et-book (Tufte CSS) ===== */
+/* Paths are relative to this file (/css/) so they survive a pathPrefix subpath. */
 @font-face {
   font-family: "et-book";
-  src: url("/assets/fonts/et-book/et-book-roman-line-figures.woff") format("woff");
+  src: url("../assets/fonts/et-book/et-book-roman-line-figures.woff") format("woff");
   font-weight: normal; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: "et-book";
-  src: url("/assets/fonts/et-book/et-book-display-italic-old-style-figures.woff") format("woff");
+  src: url("../assets/fonts/et-book/et-book-display-italic-old-style-figures.woff") format("woff");
   font-weight: normal; font-style: italic; font-display: swap;
 }
 @font-face {
   font-family: "et-book";
-  src: url("/assets/fonts/et-book/et-book-bold-line-figures.woff") format("woff");
+  src: url("../assets/fonts/et-book/et-book-bold-line-figures.woff") format("woff");
   font-weight: bold; font-style: normal; font-display: swap;
 }
 
@@ -34,7 +35,13 @@
   --color-accent:    #a00000;   /* Tufte red, used sparingly */
   --color-code-bg:   #f7f7ee;
 
-  --max-width:  47rem;
+  /* Asymmetric Tufte layout: a left-aligned reading column with a wide right
+     margin reserved for sidenotes / margin notes. Not a centered column. */
+  --measure:    36rem;   /* main text column */
+  --margin-col: 16rem;   /* right margin note column */
+  --col-gap:    3rem;    /* gap between text and margin */
+  --edge:       clamp(1.5rem, 6vw, 7rem);  /* left offset of the whole layout */
+  --content-width: calc(var(--measure) + var(--col-gap) + var(--margin-col));
   --spacing-page: 1.5rem;
 }
 
@@ -159,16 +166,16 @@ hr, .section-divider {
 
 .muted { color: var(--color-muted); font-style: italic; }
 
-/* ===== LAYOUT ===== */
+/* ===== LAYOUT (asymmetric, left-aligned) ===== */
 .site-header {
-  padding: 0 var(--spacing-page);
+  padding: 0 var(--edge);
   border-bottom: 1px solid var(--color-rule);
   background: var(--color-bg);
 }
 
 .nav {
-  max-width: var(--max-width);
-  margin: 0 auto;
+  max-width: var(--content-width);
+  margin: 0;                       /* left-aligned, not centered */
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -205,16 +212,86 @@ hr, .section-divider {
 .nav-links a:hover { color: var(--color-accent); }
 
 .main-content {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 3rem var(--spacing-page) 4rem;
+  margin: 0;                       /* hug the left edge */
+  padding: 3.5rem var(--edge) 5rem;
+  max-width: calc(var(--content-width) + 2 * var(--edge));
+  counter-reset: sidenote-counter;
 }
+
+/* Body text sits in the reading measure; the right margin is left open for
+   sidenotes / margin notes. Wide elements opt out via .fullwidth below. */
+.main-content > h1,
+.main-content > p,
+.main-content > hr,
+.section-divider,
+.profile-info,
+.papers,
+.recent-posts,
+.post-header,
+.post-content,
+.post-nav,
+.tag-index,
+.search-input,
+.search-results {
+  max-width: var(--measure);
+}
+
+/* ===== SIDENOTES & MARGIN NOTES ===== */
+.sidenote,
+.marginnote {
+  float: right;
+  clear: right;
+  width: var(--margin-col);
+  margin-right: calc(-1 * (var(--margin-col) + var(--col-gap)));
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  font-size: 0.78em;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+/* Numbered sidenotes: <sup class="sidenote-number"></sup> in text + the note */
+.sidenote-number { counter-increment: sidenote-counter; }
+.sidenote-number::after {
+  content: counter(sidenote-counter);
+  font-size: 0.7rem;
+  vertical-align: super;
+  line-height: 0;
+  color: var(--color-accent);
+}
+.sidenote::before {
+  content: counter(sidenote-counter) " ";
+  color: var(--color-accent);
+}
+
+/* Elements that break out of the reading measure into the full content area */
+.fullwidth,
+.demo-container,
+.post-content .fullwidth {
+  max-width: var(--content-width);
+  width: 100%;
+}
+
+/* Tufte subtitle / epigraph helpers (available for posts) */
+.subtitle {
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--color-muted);
+  margin: 0 0 1.5rem;
+  max-width: var(--measure);
+}
+.epigraph {
+  margin: 1.5rem 0 3rem;
+  font-style: italic;
+  max-width: var(--measure);
+}
+.epigraph footer { font-style: normal; font-size: 0.9rem; color: var(--color-muted); }
 
 .site-footer {
   border-top: 1px solid var(--color-rule);
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 1.8rem var(--spacing-page);
+  max-width: var(--content-width);
+  margin: 0;
+  padding: 1.8rem var(--edge);
+  margin-left: 0;
   font-family: var(--font-sans);
   font-size: 0.9rem;
   color: var(--color-muted);
@@ -502,9 +579,29 @@ hr, .section-divider {
 .search-result-summary { font-size: 1.2rem; color: var(--color-text); margin-bottom: 0.25rem; }
 
 /* ===== RESPONSIVE ===== */
+/* Below this width there isn't room for a margin column, so collapse it:
+   text uses the full width and sidenotes become inline indented blocks. */
+@media (max-width: 1024px) {
+  :root { --margin-col: 0rem; --col-gap: 0rem; --measure: 40rem; }
+
+  .sidenote,
+  .marginnote {
+    float: none;
+    clear: none;
+    display: block;
+    width: auto;
+    margin: 1rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-rule);
+  }
+  .sidenote::before { content: counter(sidenote-counter) ". "; }
+}
+
 @media (max-width: 760px) {
   html { font-size: 14px; }
   body { font-size: 1.5rem; }
+
+  :root { --measure: 100%; }
 
   .profile { flex-direction: column; align-items: flex-start; text-align: left; }
   .profile-photo { margin-right: 0; margin-bottom: 1.2rem; }
