@@ -11,7 +11,7 @@ title: Home
   -->
   <div class="profile-photo-wrap">
     <img
-      src="/assets/img/profile.jpg"
+      src="/assets/img/profile.png"
       alt="{{ metadata.name }}"
       class="profile-photo"
       width="120"
@@ -54,22 +54,14 @@ title: Home
 
   {% set papers = [
     {
-      title: "TODO: Paper Title One",
-      authors: "Your Name, Collaborator Name",
-      venue: "Journal of Mathematics, 2024",
-      abstract: "TODO: Paste abstract here. You can use inline math like $f: M \\to N$ between manifolds.",
-      arxiv: "https://arxiv.org/abs/0000.00000",
+      title: "The Discrete Schwarz-Pick Lemma for Circle Packings Revisted",
+      authors: "Arham Rajendra Lodha",
+      venue: "Preprint, 2024",
+      abstract: "The Discrete Schwarz-Pick Lemma is a discrete analogue of the classical result from complex analysis, arising from the connection between circle packings and conformal maps established by Thurston. Previous works by Beardon-Stephanson and Van Eeuwen proved this lemma for circle packings where circles are tangent or intersect at non-obtuse angles, corresponding to inversive distances $I \in [0, 1]$. This paper extends the investigation to circle packings with obtuse intersection ($I \in (-1, 0)$) and disjoint packings ($I > 1$). We prove that the Discrete Schwarz-Pick Lemma holds for the full range of intersecting circle packings with inversive distances in (-1, 1] , provided an additional condition on the weights of each triangle is satisfied. The proof relies on a variational principle for circle packings with inversive distances. Conversely, we show that the lemma fails for disjoint circle packings where $I \geq 1$. This is demonstrated by constructing a specific counterexample on a triangulated disk with four vertices.", 
+      arxiv: "https://arxiv.org/abs/2511.10703",
       pdf: ""
-    },
-    {
-      title: "TODO: Paper Title Two",
-      authors: "Your Name",
-      venue: "Preprint, 2025",
-      abstract: "TODO: Paste abstract here. Display math like $$\\int_M \\omega = 0$$ renders on its own line.",
-      arxiv: "",
-      pdf: "/assets/papers/paper2.pdf"
     }
-  ] %}
+      ] %}
 
   {% if papers.length == 0 %}
     <p class="muted">Publications will appear here.</p>
