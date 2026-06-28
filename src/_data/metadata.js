@@ -1,12 +1,11 @@
 module.exports = {
   // TODO: Replace with real values
-  name: "Your Name",
+  name: "Arham Lodha",
   title: "Mathematics PhD Student",
-  institution: "University Name",
-  email: "you@university.edu",
+  institution: "University of California Los Angeles",
+  email: "arhamlodha@g.ucla.edu",
   github: "https://github.com/arham-lodha",
-  description:
-    "I am a PhD student in Mathematics at [University]. My research focuses on [area]. I am interested in [topic 1], [topic 2], and [topic 3].",
-  baseUrl: "https://arham-lodha.github.io/personal-site",
+  description: "I am a first-year PhD student at UCLA and a National Science Foundation Graduate Research Fellow. I received my bachelor's degree from the University of Texas at Austin. My mathematical and research interests include representation theory, analytic number theory, complex geometry, machine learning, cryptography, and computer graphics. In other words, I like many different things and am still figuring out what I want to focus on. On this blog, I plan to write about what I am working on, interesting things I have learned, and whatever else I feel like thinking through in public.",
+  baseUrl: "https://yourusername.github.io", // TODO: set to your GitHub Pages URL
   siteTitle: "Your Name — Mathematics",
 };
