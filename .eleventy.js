@@ -24,6 +24,7 @@ module.exports = function (eleventyConfig) {
   // Date filter for templates
   eleventyConfig.addFilter("dateDisplay", (date) => {
     return new Date(date).toLocaleDateString("en-US", {
+      timeZone: "UTC",
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -52,6 +53,25 @@ module.exports = function (eleventyConfig) {
     return [...tags].sort();
   });
 
+  // Garden-mode collections: the same posts, grouped by intent.
+  eleventyConfig.addCollection("gardenResearchLog", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob("src/posts/*.md")
+      .filter((post) => post.data.kind === "log");
+  });
+
+  eleventyConfig.addCollection("gardenNotes", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob("src/posts/*.md")
+      .filter((post) => ["note", "essay"].includes(post.data.kind || "note"));
+  });
+
+  eleventyConfig.addCollection("gardenExperiments", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob("src/posts/*.md")
+      .filter((post) => post.data.kind === "experiment");
+  });
+
   // Search index collection — reads raw file to avoid templateContent timing issues in v3
   eleventyConfig.addCollection("searchIndex", (collectionApi) => {
     return collectionApi
@@ -63,6 +83,8 @@ module.exports = function (eleventyConfig) {
         return {
           url: post.url,
           title: post.data.title,
+          kind: post.data.kind || "note",
+          status: post.data.status || "",
           tags: (post.data.tags || []).join(" "),
           summary: post.data.summary || "",
           content: raw

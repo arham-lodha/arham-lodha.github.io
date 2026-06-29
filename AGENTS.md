@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Commands
 
@@ -77,7 +77,3 @@ Placeholder content is marked with `TODO` comments. Key items:
 - `src/assets/img/profile.jpg` — square profile photo ≥ 400×400 px
 - `src/assets/cv/cv.pdf` — CV
 - Papers array in `src/index.njk`
-
-## Design System
-
-Always read `DESIGN.md` before making visual or UI decisions. The site direction is an organized research garden: Andy Matuschak/Gwern-inspired structure, calmer than Gwern, less pure-note-graph than Andy, and no longer full Tufte. Do not drift back to generic academic minimalism without explicit approval.

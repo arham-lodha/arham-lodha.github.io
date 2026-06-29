@@ -3,19 +3,28 @@ pagination:
   data: collections
   size: 1
   alias: tag
-  filter: ["all", "tagList", "postsByTag", "searchIndex", "posts"]
+  filter: ["all", "tagList", "postsByTag", "searchIndex", "posts", "gardenResearchLog", "gardenNotes", "gardenExperiments"]
 permalink: /tags/{{ tag }}/
 layout: base.njk
-title: "Tag: {{ tag }}"
+title: "Trail: {{ tag }}"
 ---
 
-<h1>Posts tagged <span class="tag tag-heading">{{ tag }}</span></h1>
+<header class="page-header">
+  <p class="eyebrow">Trail</p>
+  <h1><span class="tag tag-heading">{{ tag }}</span></h1>
+</header>
 
 <ul class="post-list">
   {% for post in collections[tag] | reverse %}
   <li class="post-list-item">
+    <div class="post-list-meta">
+      <span class="post-kind">{{ post.data.kind or "note" }}</span>
+      <time class="post-list-date">{{ post.date | dateDisplay }}</time>
+      {% if post.data.status %}
+        <span class="post-status">{{ post.data.status }}</span>
+      {% endif %}
+    </div>
     <a href="{{ post.url }}" class="post-list-title">{{ post.data.title }}</a>
-    <time class="post-list-date">{{ post.date | dateDisplay }}</time>
     {% if post.data.summary %}
       <p class="post-list-summary">{{ post.data.summary }}</p>
     {% endif %}

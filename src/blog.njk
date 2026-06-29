@@ -1,17 +1,34 @@
 ---
 layout: base.njk
-title: Blog
+title: Garden
 permalink: /blog/
 ---
 
-<h1>Blog</h1>
-<p class="muted">Notes on mathematics, research, and interactive experiments.</p>
+<header class="page-header">
+  <p class="eyebrow">Garden archive</p>
+  <h1>Notes, logs, and experiments</h1>
+  <p class="page-intro">
+    A chronological view of the public research desk: polished notes, small demos,
+    and eventually the rougher log entries that trace how ideas develop.
+  </p>
+  <nav class="archive-jump" aria-label="Archive filters">
+    <a href="/tags/notes/">Notes</a>
+    <a href="/tags/experiments/">Experiments</a>
+    <a href="/tags/meta/">Meta</a>
+  </nav>
+</header>
 
 <ul class="post-list">
   {% for post in collections.posts | reverse %}
   <li class="post-list-item">
+    <div class="post-list-meta">
+      <span class="post-kind">{{ post.data.kind or "note" }}</span>
+      <time class="post-list-date">{{ post.date | dateDisplay }}</time>
+      {% if post.data.status %}
+        <span class="post-status">{{ post.data.status }}</span>
+      {% endif %}
+    </div>
     <a href="{{ post.url }}" class="post-list-title">{{ post.data.title }}</a>
-    <time class="post-list-date">{{ post.date | dateDisplay }}</time>
     {% if post.data.summary %}
       <p class="post-list-summary">{{ post.data.summary }}</p>
     {% endif %}

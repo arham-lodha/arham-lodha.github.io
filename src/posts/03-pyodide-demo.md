@@ -3,7 +3,10 @@ layout: post.njk
 title: "Python in the Browser: Symbolic Computation with Pyodide"
 date: 2025-01-25
 summary: "Run real Python (with SymPy) directly in a blog post using Pyodide. No server required."
-tags: [posts, python, computation, sympy]
+kind: experiment
+status: demo
+updated: 2025-01-25
+tags: [posts, experiments, python, computation, sympy]
 ---
 
 [Pyodide](https://pyodide.org/) is a WebAssembly port of CPython. It runs entirely in the browser — there is no server, no backend, no API call. This post shows how to embed a live Python computation environment in a blog post.

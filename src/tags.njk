@@ -1,10 +1,18 @@
 ---
 layout: base.njk
-title: Tags
+title: Trails
 permalink: /tags/
 ---
 
-<h1>Tags</h1>
+<header class="page-header">
+  <p class="eyebrow">Trails</p>
+  <h1>Follow a thread</h1>
+  <p class="page-intro">
+    Tags are the cross-paths through the garden: topics, tools, and recurring
+    preoccupations rather than rigid categories.
+  </p>
+</header>
+
 <ul class="tag-index">
   {% for tag in collections.tagList %}
   <li><a href="/tags/{{ tag }}/" class="tag">{{ tag }}</a></li>

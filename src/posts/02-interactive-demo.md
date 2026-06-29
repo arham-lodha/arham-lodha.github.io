@@ -3,7 +3,10 @@ layout: post.njk
 title: "Interactive Demo: Circle Packing with D3.js"
 date: 2025-01-20
 summary: "An interactive visualization of circle packing using D3.js, embedded directly in a Markdown post."
-tags: [posts, visualizations, d3]
+kind: experiment
+status: demo
+updated: 2025-01-20
+tags: [posts, experiments, visualizations, d3]
 ---
 
 This post demonstrates how to embed a JavaScript-based interactive visualization directly in a blog post. The demo below uses [D3.js](https://d3js.org/) to animate a circle packing layout.

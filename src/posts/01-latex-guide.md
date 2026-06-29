@@ -3,7 +3,10 @@ layout: post.njk
 title: "Writing Mathematics: A LaTeX Guide for This Blog"
 date: 2025-01-15
 summary: "A reference post showing how to write inline and display math, aligned equations, and common notation."
-tags: [posts, meta, latex]
+kind: note
+status: evergreen
+updated: 2025-01-15
+tags: [posts, notes, meta, latex]
 ---
 
 This post is a living reference for authoring mathematical content on this site. All math is written in standard LaTeX syntax and rendered at build time using [KaTeX](https://katex.org/).
