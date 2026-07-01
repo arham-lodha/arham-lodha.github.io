@@ -13,7 +13,7 @@ tags: [posts, research, graphons, extremal combinatorics, probability]
 
 Suppose you're a data scientist studying the social networks of different countries, and you want to quantify the differences in their broad structure. Maybe the network of one country is a patchwork of small, tight-knit communities with sparse connections between them. Maybe another country's network is one big, densely interconnected community. How would you actually measure that difference?
 
-<!-->TODO INSERT figure of two different example country social networks over here</-->
+<div class="demo-container graphon-demo" data-graphon-demo="network-comparison" aria-label="Two networks with similar densities and different structure"></div>
 
 The obvious first move is to count: how many people (vertices), how many relationships (edges)? But raw counts don't tell you anything about structure — a country with a tenth the population could have an essentially identical social fabric, just scaled down. So you normalize: what's the *average* number of relationships per person in country A versus country B? This is closer, but it collapses too much information into a single number. A network made of many small, tightly-knit clusters connected by sparse bridges, and a network where everyone is uniformly loosely connected, can have exactly the same average degree while looking nothing alike.
 
@@ -37,7 +37,7 @@ be the *probability* that the vertices labeled $x$ and $y$ are connected.
 
 That's the whole idea, and the random graph model falls out of it for free: to generate an $n$-vertex sample from $W$, draw $n$ labels $U_1, \ldots, U_n$ independently and uniformly from $[0,1]$, and connect each pair $i < j$ independently with probability $W(U_i, U_j)$. Call the result $G(n, W)$. This single recipe already contains familiar models as special cases. If $W$ is a constant $p$, every pair connects with the same probability and you recover the Erdős–Rényi random graph $G(n,p)$. If $W$ is a step function — constant on a grid of rectangles — you get the stochastic block model, where vertices fall into a handful of communities and connection probability depends only on which communities the two endpoints belong to.
 
-<!-->Insert simulation here.</-->
+<div class="demo-container graphon-demo" data-graphon-demo="sampling" aria-label="Iterative graphon sampling demo"></div>
 
 This is exactly the $n$-independent object the comparison problem was asking for: $W$ doesn't care how many vertices you sample from it, so two networks of wildly different sizes can now be compared by comparing the $W$'s that plausibly generated them, rather than the raw graphs themselves. (Why this also resolves the motif-counting problem — that $W$ implicitly encodes the density of every motif at once — is the subject of a later section.)
 
@@ -52,6 +52,8 @@ That last clause — modding out by sets of measure zero — isn't a technicalit
 The stochastic block model picture above generalizes into the most important sub-family of graphons, the **multipodal graphons**: step functions on the unit square. Formally, $W$ is multipodal if you can partition $[0,1]$ into finitely many pieces $I_1, \ldots, I_N$ (the "podes") and assign a weight $w_{ij} = w_{ji} \in [0,1]$ to each pair of pieces, so that $W$ equals $w_{ij}$ on the rectangle $I_i \times I_j$.
 
 These are worth dwelling on because they show, very concretely, how a graphon generalizes a finite graph — and how an actual, finite country's network sits inside the same space as the continuous idealized version. Take any simple graph $G$ on $n$ vertices, chop $[0,1]$ into $n$ equal intervals $I_1, \ldots, I_n$, and define a graphon $W_G$ that's $1$ on $I_i \times I_j$ exactly when $\{i,j\}$ is an edge of $G$, and $0$ otherwise. This is the **graphon blowup** of $G$ — sometimes called its checkerboard graphon, because that's literally what it looks like as a picture: a black-and-white grid encoding the adjacency matrix. Every finite graph sits inside the space of graphons this way.
+
+<div class="demo-container graphon-demo" data-graphon-demo="checkerboard" aria-label="Finite graph, adjacency matrix, and checkerboard graphon"></div>
 
 
 ## When are two graphons "the same"?
@@ -69,6 +71,8 @@ where the supremum is over measurable subsets $S, T$. This induces the **cut dis
 But cut distance alone is too sensitive: it can declare two graphons "different" just because they use different labelings, even when they generate the exact same family of random graphs. Think of the finite-graph analogy. Two graphs on the same vertex set are *isomorphic* if relabeling the vertices of one turns it into the other, and any property we actually care about — triangle count, edge density, anything — is invariant under that relabeling. So isomorphic graphs are "the same" for essentially every purpose, even though they're literally different objects on paper.
  
 The graphon version of relabeling is a **measure-preserving bijection** $\sigma: [0,1] \to [0,1]$ — a way of permuting the label space itself. If $W^\sigma(x,y) := W(\sigma(x), \sigma(y))$, then $W^\sigma$ generates *exactly* the same distribution of random graphs as $W$ does, because relabeling i.i.d. uniform samples with a measure-preserving map just gives you i.i.d. uniform samples again. So $W$ and $W^\sigma$ play the role of isomorphic graphs.
+
+<div class="demo-container graphon-demo" data-graphon-demo="relabeling" aria-label="Relabeling graphons and sampled graphs"></div>
  
 This gives the right notion of distance, the **cut metric**:
  
@@ -111,6 +115,8 @@ It's worth being precise about what injectivity does and doesn't buy you. It doe
 Here's where the machinery pays off on a concrete question. Fix the edge density $e(W) = \epsilon$ of a graphon. What triangle densities $t(W)$ are achievable?
  
 Plot every achievable pair $(e(W), t(W))$ as $W$ ranges over all graphons, and you get a region in $[0,1]^2$ called the **Razborov triangle**, after Alexander Razborov, who found the minimum achievable triangle density for each edge density in a 2008 paper.
+
+<div class="demo-container graphon-demo" data-graphon-demo="razborov" aria-label="Razborov triangle with upper, Erdos-Renyi, and lower bounds"></div>
  
 The maximum is the easy direction:
  
@@ -129,6 +135,8 @@ The Razborov triangle is built around a tension between two graphs: a fixed edge
 The next post picks up exactly there, in the limiting regime $\tau \to 0$ — the graphon analogue of "almost triangle-free." It turns out the corner of the Razborov triangle near $\epsilon \leq 1/2$, where triangle density can be driven to zero outright, is the right place to start, and the extremal constructions look a lot like the localized, budget-exhausting graphons that show up in the minimum-triangle-density theorems above.
  
 I'll link that post here once it's up.
+
+<script src="/js/sketches/graphons.js"></script>
  
 ---
  
@@ -136,11 +144,6 @@ I'll link that post here once it's up.
  
 **THIS POST IS NOT DONE.** Still need:
  
-- [ ] **Graphon sampling demo** — interactive widget letting the reader pick/draw a graphon $W$ (constant, step-function, smooth) and sample $G(n, W)$ for increasing $n$, placed after the $W$-random graph construction.
-- [ ] **Cut norm / cut distance demo** — draggable region $S \times T$ over a heatmap of $W$, live-updating the integral, tracking the running sup. Possibly extend to two graphons side by side for $d_\square(W_1, W_2)$.
-- [ ] **Relabeling / shuffle demo** — button to apply a random measure-preserving $\sigma$ to a graphon heatmap, showing how scrambled it looks while still being "the same" graphon under $\delta_\square$.
-- [ ] **Checkerboard graphon figure** — static side-by-side of a small graph's adjacency matrix next to its graphon blowup heatmap.
 - [ ] Re-add real citations/links for Lovász–Szegedy, Razborov, Pikhurko et al. (currently stripped from the thesis bib keys).
 - [ ] Link this post forward once the $\tau \to 0$ post is published.
  
-
