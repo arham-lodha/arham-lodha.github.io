@@ -19,7 +19,7 @@ The obvious first move is to count: how many people (vertices), how many relatio
 
 So maybe you go local instead of global: analyze the *motifs*. What fraction of triples of people are mutually connected (triangle density)? What fraction of quadruples are mutually connected (tetrahedron density)? This gets you somewhere — now you're comparing structure, not just size. But it's still not enough. Two networks can agree on triangle density, agree on tetrahedron density, agree on every motif you've thought to check, and still differ in their global structure in ways those finitely many statistics simply don't capture. Closing that gap means checking larger and larger motifs, forever, with no guarantee you ever actually pin the structure down.
 
-This is the problem graphons solve. They give you a single object that simultaneously encodes the density of *every* motif at once, and — just as importantly — a natural notion of distance between two such objects, so two networks with similar structure end up provably close together, not just similar on whichever finite checklist of statistics you happened to compute. In 2006, Lovász and Szegedy introduced graphons as continuous limit objects for sequences of dense graphs, with motivations well beyond this network-comparison problem — convergence, sampling, statistics on huge graphs — but the comparison problem is a clean way to see why you'd want them.
+This is the problem graphons solve. They give you a single object that simultaneously encodes the density of *every* motif at once, and — just as importantly — a natural notion of distance between two such objects, so two networks with similar structure end up provably close together, not just similar on whichever finite checklist of statistics you happened to compute. In 2006, Lovász and Szegedy introduced graphons as continuous limit objects for sequences of dense graphs, with motivations well beyond this network-comparison problem — convergence, sampling, statistics on huge graphs — but the comparison problem is a clean way to see why you'd want them ([Lovász--Szegedy 2006](#ref-lovasz-szegedy-2006); [Lovász 2012](#ref-lovasz-2012)).
 
 The philosophical move is the same one that gets you from the rational numbers to the real numbers. The rationals have gaps — $\sqrt{2}$ isn't one of them — and filling those gaps with limits gives you a complete, well-behaved space where calculus actually works. Graphons do this for graphs: a sequence of networks that keeps agreeing on more and more motifs, without ever quite settling into a fixed structure, is exactly the graph-theoretic analogue of a Cauchy sequence with no rational limit. Graphons fill that gap, completing the space of finite graphs into a continuous space where every reasonable sequence of dense graphs has a limit, and where the combinatorial act of counting motifs becomes the analytic act of integration.
 
@@ -35,7 +35,7 @@ $$W: [0,1]^2 \to [0,1]$$
 
 be the *probability* that the vertices labeled $x$ and $y$ are connected.
 
-That's the whole idea, and the random graph model falls out of it for free: to generate an $n$-vertex sample from $W$, draw $n$ labels $U_1, \ldots, U_n$ independently and uniformly from $[0,1]$, and connect each pair $i < j$ independently with probability $W(U_i, U_j)$. Call the result $G(n, W)$. This single recipe already contains familiar models as special cases. If $W$ is a constant $p$, every pair connects with the same probability and you recover the Erdős–Rényi random graph $G(n,p)$. If $W$ is a step function — constant on a grid of rectangles — you get the stochastic block model, where vertices fall into a handful of communities and connection probability depends only on which communities the two endpoints belong to.
+That's the whole idea, and the random graph model falls out of it for free: to generate an $n$-vertex sample from $W$, draw $n$ labels $U_1, \ldots, U_n$ independently and uniformly from $[0,1]$, and connect each pair $i < j$ independently with probability $W(U_i, U_j)$. Call the result $G(n, W)$. This sampling viewpoint also sits inside the broader theory of exchangeable random graph models ([Orbanz--Roy 2014](#ref-orbanz-roy-2014)). This single recipe already contains familiar models as special cases. If $W$ is a constant $p$, every pair connects with the same probability and you recover the Erdős–Rényi random graph $G(n,p)$. If $W$ is a step function — constant on a grid of rectangles — you get the stochastic block model, where vertices fall into a handful of communities and connection probability depends only on which communities the two endpoints belong to.
 
 <div class="demo-container graphon-demo" data-graphon-demo="sampling" aria-label="Iterative graphon sampling demo"></div>
 
@@ -82,7 +82,7 @@ minimizing over every possible relabeling $\sigma$. Where the cut distance compa
  
 Technically, $\delta_\square$ ends up being only a *pseudometric* on the space of graphons — distinct graphons can sit at distance zero from each other. Quotienting by that relation gives the space of **reduced graphons** $\widetilde{\mathcal{W}}$, on which $\delta_\square$ is a genuine metric, and where "graphon" really means "graphon up to relabeling" from here on, even when I just write $W$.
  
-The reason all of this machinery is worth building: $(\widetilde{\mathcal{W}}, \delta_\square)$ is a **compact** metric space — a theorem of Lovász and Szegedy. Compactness is what makes graphons useful as limit objects rather than just an alternative encoding: every sequence of graphons has a convergent subsequence, which is exactly the kind of completeness you want from something playing the role of "the real numbers" for graphs.
+The reason all of this machinery is worth building: $(\widetilde{\mathcal{W}}, \delta_\square)$ is a **compact** metric space — a theorem of Lovász and Szegedy, developed further in the graph-limit and regularity/topology literature ([Lovász--Szegedy 2006](#ref-lovasz-szegedy-2006); [Borgs et al. 2008](#ref-borgs-chayes-lovasz-sos-vesztergombi-2008); [Lovász--Szegedy 2010](#ref-lovasz-szegedy-2010)). Compactness is what makes graphons useful as limit objects rather than just an alternative encoding: every sequence of graphons has a convergent subsequence, which is exactly the kind of completeness you want from something playing the role of "the real numbers" for graphs.
  
 And the limiting story closes the loop: for any graphon $W$, if you sample $G(n, W)$ and take its graphon blowup, that blowup converges to $W$ in cut metric almost surely as $n \to \infty$. So graphons are doing double duty — they parametrize random graph models, *and* they are the limits of the dense graph sequences those models produce. From here on, "graphon" really means an equivalence class in $\widetilde{\mathcal{W}}$, even when I just write $W$.
 
@@ -102,7 +102,7 @@ $$t(W) := t(K_3, W) = \int_{[0,1]^3} W(x,y)\,W(y,z)\,W(x,z)\, dx\, dy\, dz$$
 
 These have a clean probabilistic meaning: $t(G, W)$ is the limiting probability that a fixed map from $V(G)$ lands inside $G(n, W)$ as a homomorphism, as $n \to \infty$. In particular $e(W)$ and $t(W)$ are just the edge and triangle probabilities of the corresponding random graph model. And reassuringly, this all agrees with the finite picture: if $W_H$ is the graphon blowup of a graph $H$, then $t(G, H) = t(G, W_H)$ — homomorphism density of finite graphs is a special case of the graphon version, not a different thing wearing the same name.
 
-Two theorems justify treating $\widetilde{\mathcal{W}}$ as the right home for these questions, and both connect directly back to the introduction's complaint about motifs.
+Two theorems justify treating $\widetilde{\mathcal{W}}$ as the right home for these questions, and both connect directly back to the introduction's complaint about motifs ([Lovász--Szegedy 2006](#ref-lovasz-szegedy-2006); [Lovász 2012](#ref-lovasz-2012)).
 
 - **Continuity.** For every graph $G$, the map $W \mapsto t(G, W)$ is continuous on $\widetilde{\mathcal{W}}$. This is what ties homomorphism densities to the cut metric from the previous section: graphons that are close in $\delta_\square$ are automatically close in *every* motif density at once, not just the ones you happened to check.
 - **Injectivity.** The map sending $W$ to the entire tuple of its homomorphism densities $(t(G,W))_{G}$ is injective — a graphon is completely determined by its homomorphism densities, taken all together over every finite $G$.
@@ -114,17 +114,17 @@ It's worth being precise about what injectivity does and doesn't buy you. It doe
  
 Here's where the machinery pays off on a concrete question. Fix the edge density $e(W) = \epsilon$ of a graphon. What triangle densities $t(W)$ are achievable?
  
-Plot every achievable pair $(e(W), t(W))$ as $W$ ranges over all graphons, and you get a region in $[0,1]^2$ called the **Razborov triangle**, after Alexander Razborov, who found the minimum achievable triangle density for each edge density in a 2008 paper.
+Plot every achievable pair $(e(W), t(W))$ as $W$ ranges over all graphons, and you get a region in $[0,1]^2$ called the **Razborov triangle**, after Alexander Razborov, who found the minimum achievable triangle density for each edge density in a 2008 paper ([Razborov 2008](#ref-razborov-2008)).
 
 <div class="demo-container graphon-demo" data-graphon-demo="razborov" aria-label="Razborov triangle with upper, Erdos-Renyi, and lower bounds"></div>
  
-The maximum is the easy direction:
+The maximum is the easy direction, essentially a graphon version of a generalized Hölder/Finner inequality ([Finner 1992](#ref-finner-1992)):
  
 > **Theorem (Maximum triangle density).** For a graphon $W$ with edge density $\epsilon$, $t(W) \leq \epsilon^{3/2}$, with equality uniquely at $W = \mathbb{1}_{[0,\sqrt{\epsilon}]^2}$ — a single dense block.
  
 The minimum is where it gets interesting, and it comes in pieces. For $\epsilon \leq 1/2$, you can actually drive the triangle density all the way down to zero — achieved by a complete bipartite-style graphon (split $[0,1]$ in half and connect across, never within). Any edge density up to $1/2$ is reachable by a triangle-free graphon, so the lower boundary of $\mathcal{R}$ just sits on the axis for that whole stretch.
  
-Past $\epsilon = 1/2$ it's no longer possible to avoid triangles entirely, and the exact minimum — proven by Razborov using a technique called *flag algebras*, which is in a precise sense dual to the graphon picture via the injectivity theorem above — has a genuinely ugly closed form involving square roots and a parameter $k$ that increases as $\epsilon$ climbs. The extremal construction has a nice shape, though: partition $[0,1]$ into $k$ intervals, make every cross-pair of intervals fully connected, make all but one of the intervals internally triangle-free, and let the leftover interval absorb whatever edge density is needed without contributing extra triangles. The strategy — exhaust your triangle "budget" in one localized region, and let the rest of the graphon pad out the edge density for free — is a recurring trick.
+Past $\epsilon = 1/2$ it's no longer possible to avoid triangles entirely, and the exact minimum — proven by Razborov using a technique called *flag algebras*, which is in a precise sense dual to the graphon picture via the injectivity theorem above — has a genuinely ugly closed form involving square roots and a parameter $k$ that increases as $\epsilon$ climbs ([Razborov 2008](#ref-razborov-2008); [Razborov 2013](#ref-razborov-2013)). The extremal construction has a nice shape, though: partition $[0,1]$ into $k$ intervals, make every cross-pair of intervals fully connected, make all but one of the intervals internally triangle-free, and let the leftover interval absorb whatever edge density is needed without contributing extra triangles. Pikhurko and Razborov later made the asymptotic structure of these minimizing graphs precise ([Pikhurko--Razborov 2017](#ref-pikhurko-razborov-2017)). The strategy — exhaust your triangle "budget" in one localized region, and let the rest of the graphon pad out the edge density for free — is a recurring trick.
  
 Put the maximum, the $\epsilon \leq 1/2$ minimum, and the Razborov minimum together, and you get the full shape of $\mathcal{R}$: a region bounded above by a smooth curve and below by a curve that's flat near the origin and then breaks into infinitely many pieces, one for each integer $k$, getting smoother as $\epsilon \to 1$.
  
@@ -133,17 +133,17 @@ Put the maximum, the $\epsilon \leq 1/2$ minimum, and the Razborov minimum toget
 The Razborov triangle is built around a tension between two graphs: a fixed edge density $\epsilon$ caps how many triangles a graphon can pack in, and the question is how tight that cap actually is. Nothing about that tension is special to triangles. Replace "triangle" with any graph $G$, and ask the analogous question: among graphons with edge density $e(W) = \epsilon$ and triangle density $t(W) \leq \tau$, how large can $t(G, W)$ get?
  
 The next post picks up exactly there, in the limiting regime $\tau \to 0$ — the graphon analogue of "almost triangle-free." It turns out the corner of the Razborov triangle near $\epsilon \leq 1/2$, where triangle density can be driven to zero outright, is the right place to start, and the extremal constructions look a lot like the localized, budget-exhausting graphons that show up in the minimum-triangle-density theorems above.
- 
-I'll link that post here once it's up.
+
+## References
+
+- <span id="ref-borgs-chayes-lovasz-sos-vesztergombi-2008"></span>Borgs, Christian; Chayes, Jennifer T.; Lovász, László; Sós, Vera T.; and Vesztergombi, Katalin. "Convergent Sequences of Dense Graphs I: Subgraph Frequencies, Metric Properties and Testing." *Advances in Mathematics* 219, no. 6 (2008): 1801--1851.
+- <span id="ref-finner-1992"></span>Finner, Helmut. "A Generalization of Hölder's Inequality and Some Probability Inequalities." *The Annals of Probability* (1992): 1893--1901.
+- <span id="ref-lovasz-szegedy-2006"></span>Lovász, László, and Szegedy, Balázs. "Limits of Dense Graph Sequences." *Journal of Combinatorial Theory, Series B* 96, no. 6 (2006): 933--957.
+- <span id="ref-lovasz-szegedy-2010"></span>Lovász, László, and Szegedy, Balázs. "Regularity Partitions and the Topology of Graphons." In *An Irregular Mind: Szemerédi Is 70*, 415--446. Springer, 2010.
+- <span id="ref-lovasz-2012"></span>Lovász, László. *Large Networks and Graph Limits*. Vol. 60. American Mathematical Society, 2012.
+- <span id="ref-orbanz-roy-2014"></span>Orbanz, Peter, and Roy, Daniel M. "Bayesian Models of Graphs, Arrays and Other Exchangeable Random Structures." *IEEE Transactions on Pattern Analysis and Machine Intelligence* 37, no. 2 (2014): 437--461.
+- <span id="ref-pikhurko-razborov-2017"></span>Pikhurko, Oleg, and Razborov, Alexander. "Asymptotic Structure of Graphs with the Minimum Number of Triangles." *Combinatorics, Probability and Computing* 26, no. 1 (2017): 138--160.
+- <span id="ref-razborov-2008"></span>Razborov, Alexander A. "On the Minimal Density of Triangles in Graphs." *Combinatorics, Probability and Computing* 17, no. 4 (2008): 603--618.
+- <span id="ref-razborov-2013"></span>Razborov, Alexander A. "Flag Algebras: An Interim Report." In *The Mathematics of Paul Erdős II*, 207--232. Springer, 2013.
 
 <script src="/js/sketches/graphons.js"></script>
- 
----
- 
-## TODO
- 
-**THIS POST IS NOT DONE.** Still need:
- 
-- [ ] Re-add real citations/links for Lovász–Szegedy, Razborov, Pikhurko et al. (currently stripped from the thesis bib keys).
-- [ ] Link this post forward once the $\tau \to 0$ post is published.
- 
