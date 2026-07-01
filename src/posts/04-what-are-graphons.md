@@ -4,7 +4,7 @@ title: "What are graphons?"
 date: 2026-06-28
 summary: "Graphs are rigid, discrete objects — hard to compare once they have different numbers of vertices. Graphons fix this by turning graphs into continuous functions, and counting subgraphs into integration."
 kind: research
-status: incomplete
+status: published
 updated: 2026-06-29
 tags: [posts, research, graphons, extremal combinatorics, probability]
 ---
