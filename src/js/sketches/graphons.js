@@ -452,6 +452,7 @@
       edges: [],
       nodes: [],
       timer: null,
+      autoPlay: false,
       frame: null,
       lastFrame: 0,
       latestIndex: -1,
@@ -505,6 +506,21 @@
       return { x: width * (0.18 + 0.64 * label), y: height * (0.68 - 0.36 * label) };
     }
 
+    function intervalFor(n) {
+      if (n < 20)  return 460;
+      if (n < 50)  return 900;
+      if (n < 100) return 1800;
+      return 3000;
+    }
+
+    function scheduleNext() {
+      const delay = intervalFor(state.labels.length);
+      state.timer = window.setTimeout(() => {
+        addVertex();
+        if (state.autoPlay) scheduleNext();
+      }, delay);
+    }
+
     function addVertex() {
       const u = Math.random();
       const idx = state.labels.length;
@@ -528,7 +544,8 @@
     }
 
     function stop() {
-      if (state.timer) window.clearInterval(state.timer);
+      state.autoPlay = false;
+      if (state.timer) window.clearTimeout(state.timer);
       state.timer = null;
       play.textContent = "Play";
     }
@@ -563,8 +580,6 @@
         metric("vertices", String(state.labels.length)),
         metric("edges", String(state.edges.length))
       );
-      add.disabled = state.labels.length >= 120;
-      if (state.labels.length >= 120) stop();
     }
 
     function tick(timestamp = 0) {
@@ -586,12 +601,13 @@
     add.addEventListener("click", addVertex);
     reset.addEventListener("click", resetSample);
     play.addEventListener("click", () => {
-      if (state.timer) {
+      if (state.autoPlay) {
         stop();
         return;
       }
+      state.autoPlay = true;
       play.textContent = "Pause";
-      state.timer = window.setInterval(addVertex, 460);
+      scheduleNext();
     });
 
     renderStaticParts();
