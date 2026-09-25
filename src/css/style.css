@@ -792,6 +792,75 @@ hr, .section-divider {
 .search-result-title:hover { color: var(--color-accent); }
 .search-result-summary { font-size: 1.1rem; color: var(--color-muted); margin-bottom: 0.25rem; }
 
+/* ===== TEACHING ===== */
+.course {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.course-section {
+  margin-top: 2.5rem;
+}
+.course-section h2 {
+  font-size: 1.55rem;
+  margin-bottom: 0.75rem;
+}
+
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+.course-table th {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-weight: normal;
+  border-bottom: 1px solid var(--color-rule);
+  padding: 0.4rem 0.4rem;
+  text-align: left;
+}
+.course-table td {
+  padding: 0.45rem 0.4rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.course-oh-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+.course-oh-list li {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.3rem 0;
+  margin: 0;
+  font-size: 1.1rem;
+}
+.course-oh-day { min-width: 13rem; }
+.course-oh-location { color: var(--color-muted); }
+
+.course-plan-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+.course-plan-list li {
+  padding: 0.3rem 0;
+  margin: 0;
+  font-size: 1.1rem;
+}
+.course-plan-date {
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  color: var(--color-faint);
+}
+
+.course-notes { margin-top: 2.5rem; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
   .entry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

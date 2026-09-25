@@ -1,0 +1,32 @@
+---
+layout: base.njk
+title: Teaching
+permalink: /teaching/
+---
+
+<header class="page-header">
+  <p class="eyebrow">Teaching</p>
+  <h1>Courses</h1>
+  <p class="page-intro">
+    Discussion sections, office hours, and course materials.
+  </p>
+</header>
+
+{% if collections.teaching.length %}
+<ul class="post-list">
+  {% for course in collections.teaching %}
+  <li class="post-list-item">
+    <div class="post-list-meta">
+      <span class="post-kind">{{ course.data.term }}</span>
+      <span class="post-list-date">{{ course.data.role }}</span>
+    </div>
+    <a href="{{ course.url }}" class="post-list-title">{{ course.data.title }}</a>
+    {% if course.data.instructor %}
+      <p class="post-list-summary">{{ course.data.instructor }}</p>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="muted">No courses listed yet.</p>
+{% endif %}

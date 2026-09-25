@@ -1,0 +1,90 @@
+---
+layout: base.njk
+---
+
+<article class="course">
+  <header class="post-header">
+    <p class="eyebrow">{{ role }}{% if instructor %} · {{ instructor }}{% endif %}</p>
+    <h1 class="post-title">{{ title }}</h1>
+    <div class="post-meta">
+      <span class="post-kind">{{ term }}</span>
+    </div>
+  </header>
+
+  {% if description %}
+  <div class="post-content course-description">
+    <p>{{ description }}</p>
+  </div>
+  {% endif %}
+
+  {% if officeHours %}
+  <section class="course-section">
+    <h2>Office Hours</h2>
+    <ul class="course-oh-list">
+      {% for oh in officeHours %}
+      <li>
+        <span class="course-oh-day">{{ oh.day }}, {{ oh.time }}</span>
+        <span class="course-oh-location">{{ oh.location }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if syllabus %}
+  <section class="course-section">
+    <h2>Syllabus</h2>
+    <p><a href="{{ syllabus }}">Download syllabus (PDF)</a></p>
+  </section>
+  {% endif %}
+
+  {% if discussion %}
+  <section class="course-section">
+    <h2>Discussion Worksheets</h2>
+    <table class="course-table">
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>Topic</th>
+          <th>Worksheet</th>
+          <th>Solutions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in discussion %}
+        <tr>
+          <td>{{ d.week }}</td>
+          <td>{{ d.title }}</td>
+          <td>{% if d.worksheet %}<a href="{{ d.worksheet }}">PDF</a>{% else %}—{% endif %}</td>
+          <td>{% if d.solutions %}<a href="{{ d.solutions }}">PDF</a>{% else %}—{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+
+  {% if lessonPlans %}
+  <section class="course-section">
+    <h2>Lesson Plans</h2>
+    <ul class="course-plan-list">
+      {% for plan in lessonPlans %}
+      <li>
+        {% if plan.date %}<time class="course-plan-date">{{ plan.date | dateDisplay }}</time> · {% endif %}
+        {% if plan.file %}<a href="{{ plan.file }}">{{ plan.title }}</a>{% else %}{{ plan.title }}{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if content %}
+  <div class="post-content course-notes">
+    {{ content | safe }}
+  </div>
+  {% endif %}
+
+  <nav class="post-nav">
+    <a href="/teaching/">← Teaching</a>
+  </nav>
+</article>

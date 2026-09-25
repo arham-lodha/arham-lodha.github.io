@@ -72,6 +72,13 @@ module.exports = function (eleventyConfig) {
       .filter((post) => post.data.kind === "experiment");
   });
 
+  // Teaching pages collection (reverse-chronological by term start date)
+  eleventyConfig.addCollection("teaching", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob("src/teaching/*.md")
+      .sort((a, b) => b.date - a.date);
+  });
+
   // Search index collection — reads raw file to avoid templateContent timing issues in v3
   eleventyConfig.addCollection("searchIndex", (collectionApi) => {
     return collectionApi
