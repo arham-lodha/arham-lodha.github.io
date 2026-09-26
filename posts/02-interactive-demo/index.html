@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Demo: Circle Packing with D3.js — Arham Lodha — Research Garden</title>
+  <meta name="description" content="" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#fffff8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#151515" media="(prefers-color-scheme: dark)" />
+
+  <!-- Self-hosted KaTeX CSS (math rendering) — no CDN round-trip -->
+  <link rel="stylesheet" href="/~arham.lodha/css/katex.min.css" />
+
+  <link rel="stylesheet" href="/~arham.lodha/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="/~arham.lodha/" class="nav-name">Arham Lodha</a>
+      <ul class="nav-links">
+        <li><a href="/~arham.lodha/">Home</a></li>
+        <li><a href="/~arham.lodha/blog/">Garden</a></li>
+        <li><a href="/~arham.lodha/tags/">Trails</a></li>
+        <li><a href="/~arham.lodha/teaching/">Teaching</a></li>
+        <li><a href="/~arham.lodha/search/">Search</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Interactive Demo: Circle Packing with D3.js</h1>
+    <div class="post-meta">
+      <span class="post-kind">experiment</span>
+      <time datetime="2025-01-20">January 20, 2025</time>
+      
+      <span>updated January 20, 2025</span>
+      
+      
+      <span class="post-status">demo</span>
+      
+      
+      <span class="post-tags">
+        
+          
+        
+          
+            <a href="/~arham.lodha/tags/experiments/" class="tag">experiments</a>
+          
+        
+          
+            <a href="/~arham.lodha/tags/visualizations/" class="tag">visualizations</a>
+          
+        
+          
+            <a href="/~arham.lodha/tags/d3/" class="tag">d3</a>
+          
+        
+      </span>
+      
+    </div>
+  </header>
+
+  <div class="post-content">
+    <p>This post demonstrates how to embed a JavaScript-based interactive visualization directly in a blog post. The demo below uses <a href="https://d3js.org/">D3.js</a> to animate a circle packing layout.</p>
+<p>The mathematics behind circle packing connects to the <strong>Apollonian gasket</strong> and the Descartes Circle Theorem. For four mutually tangent circles with curvatures <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>k</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>k</mi><mn>3</mn></msub><mo separator="true">,</mo><msub><mi>k</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">k_1, k_2, k_3, k_4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, Descartes showed:</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mrow><mo fence="true">(</mo><msub><mi>k</mi><mn>1</mn></msub><mo>+</mo><msub><mi>k</mi><mn>2</mn></msub><mo>+</mo><msub><mi>k</mi><mn>3</mn></msub><mo>+</mo><msub><mi>k</mi><mn>4</mn></msub><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo>=</mo><mn>2</mn><mrow><mo fence="true">(</mo><msubsup><mi>k</mi><mn>1</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>k</mi><mn>2</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>k</mi><mn>3</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>k</mi><mn>4</mn><mn>2</mn></msubsup><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\left(k_1 + k_2 + k_3 + k_4\right)^2 = 2\left(k_1^2 + k_2^2 + k_3^2 + k_4^2\right)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.204em;vertical-align:-0.25em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.954em;"><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2141em;vertical-align:-0.35em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-2.453em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-2.453em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-2.453em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-2.453em;margin-left:-0.0315em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span></span></p>
+<h2>Live Demo</h2>
+<p>Click <strong>Regenerate</strong> to produce a new random packing.</p>
+<div class="demo-container">
+  <svg id="circle-pack-svg" width="100%" viewBox="0 0 500 400"></svg>
+  <div style="text-align:center; margin-top:0.75rem;">
+    <button class="btn" onclick="generatePacking()">Regenerate</button>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script>
+const svg = d3.select("#circle-pack-svg");
+const W = 500, H = 400;
+
+function generatePacking() {
+  svg.selectAll("*").remove();
+
+  const n = Math.floor(Math.random() * 30) + 20;
+  const data = { name: "root", children: Array.from({ length: n }, (_, i) => ({
+    name: String(i),
+    value: Math.random() * 80 + 10
+  }))};
+
+  const pack = d3.pack().size([W - 4, H - 4]).padding(3);
+  const root = d3.hierarchy(data).sum(d => d.value);
+  pack(root);
+
+  const color = d3.scaleOrdinal(d3.schemeTableau10);
+
+  svg.selectAll("circle")
+    .data(root.leaves())
+    .join("circle")
+    .attr("cx", d => d.x + 2)
+    .attr("cy", d => d.y + 2)
+    .attr("r", 0)
+    .attr("fill", (_, i) => color(i % 10))
+    .attr("fill-opacity", 0.7)
+    .attr("stroke", "#fff")
+    .attr("stroke-width", 1.5)
+    .transition().duration(600)
+    .attr("r", d => d.r);
+}
+
+generatePacking();
+</script>
+<h2>How to Embed Your Own Visualization</h2>
+<p>To add an interactive demo to any post, follow this pattern:</p>
+<pre><code class="language-html">&lt;!-- 1. An HTML container --&gt;
+&lt;div class=&quot;demo-container&quot;&gt;
+  &lt;canvas id=&quot;my-canvas&quot; width=&quot;500&quot; height=&quot;400&quot;&gt;&lt;/canvas&gt;
+&lt;/div&gt;
+
+&lt;!-- 2. Load your library from CDN --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- 3. Your visualization code --&gt;
+&lt;script&gt;
+  // Write vanilla JS here. The DOM is ready.
+  const canvas = document.getElementById(&quot;my-canvas&quot;);
+  // ...
+&lt;/script&gt;
+</code></pre>
+<p>The <code>.demo-container</code> CSS class adds a subtle border and handles overflow for you. No build step or bundler is needed — just drop the script tags into your Markdown.</p>
+
+  </div>
+
+  <nav class="post-nav">
+    <a href="/~arham.lodha/blog/">← All posts</a>
+  </nav>
+</article>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Arham Lodha ·
+      <a href="mailto:arhamlodha@g.ucla.edu">arhamlodha@g.ucla.edu</a> ·
+      <a href="https://github.com/arham-lodha" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </footer>
+</body>
+</html>
