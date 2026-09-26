@@ -52,7 +52,7 @@ title: Home
     </p>
     <p class="profile-bio">{{ metadata.homeDescription }}</p>
     <nav class="profile-links" aria-label="Profile links">
-      <a href="/assets/cv/cv.pdf" target="_blank" rel="noopener">CV</a>
+      <a href="{{ '/assets/cv/cv.pdf' | url }}" target="_blank" rel="noopener">CV</a>
       <a href="{{ metadata.github }}" target="_blank" rel="noopener">GitHub</a>
       <a href="mailto:{{ metadata.email }}">Email</a>
     </nav>
@@ -60,7 +60,7 @@ title: Home
 
   <div class="profile-photo-wrap">
     <img
-      src="/assets/img/profile.png"
+      src="{{ '/assets/img/profile.png' | url }}"
       alt="{{ metadata.name }}"
       class="profile-photo"
       width="320"
@@ -89,7 +89,7 @@ title: Home
   <h2 id="entry-heading">The garden, kept organized</h2>
   <div class="entry-grid">
     {% for way in entryWays %}
-    <a class="entry-way" href="{{ way.href }}">
+    <a class="entry-way" href="{{ way.href | url }}">
       <span class="entry-meta">{{ way.meta }}</span>
       <strong>{{ way.title }}</strong>
       <span>{{ way.description }}</span>
@@ -112,7 +112,7 @@ title: Home
           <span class="post-status">{{ post.data.status }}</span>
         {% endif %}
       </div>
-      <a href="{{ post.url }}" class="post-list-title">{{ post.data.title }}</a>
+      <a href="{{ post.url | url }}" class="post-list-title">{{ post.data.title }}</a>
       {% if post.data.summary %}
         <p class="post-list-summary">{{ post.data.summary }}</p>
       {% endif %}
@@ -120,7 +120,7 @@ title: Home
       <span class="post-tags">
         {% for tag in post.data.tags %}
           {% if tag != "posts" %}
-            <a href="/tags/{{ tag }}/" class="tag">{{ tag }}</a>
+            <a href="{{ ('/tags/' + tag + '/') | url }}" class="tag">{{ tag }}</a>
           {% endif %}
         {% endfor %}
       </span>
@@ -128,7 +128,7 @@ title: Home
     </li>
     {% endfor %}
   </ul>
-  <a href="/blog/" class="more-link">Open the garden archive</a>
+  <a href="{{ '/blog/' | url }}" class="more-link">Open the garden archive</a>
 </section>
 
 <hr class="section-divider" />

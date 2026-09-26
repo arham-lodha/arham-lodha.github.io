@@ -81,6 +81,7 @@ module.exports = function (eleventyConfig) {
 
   // Search index collection — reads raw file to avoid templateContent timing issues in v3
   eleventyConfig.addCollection("searchIndex", (collectionApi) => {
+    const prefix = (process.env.ELEVENTY_PATH_PREFIX || "/").replace(/\/$/, "");
     return collectionApi
       .getFilteredByGlob("src/posts/*.md")
       .map((post) => {
@@ -88,7 +89,7 @@ module.exports = function (eleventyConfig) {
           ? fs.readFileSync(post.inputPath, "utf8").replace(/^---[\s\S]*?---\n?/, "")
           : "";
         return {
-          url: post.url,
+          url: prefix + post.url,
           title: post.data.title,
           kind: post.data.kind || "note",
           status: post.data.status || "",

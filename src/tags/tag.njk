@@ -24,7 +24,7 @@ title: "Trail: {{ tag }}"
         <span class="post-status">{{ post.data.status }}</span>
       {% endif %}
     </div>
-    <a href="{{ post.url }}" class="post-list-title">{{ post.data.title }}</a>
+    <a href="{{ post.url | url }}" class="post-list-title">{{ post.data.title }}</a>
     {% if post.data.summary %}
       <p class="post-list-summary">{{ post.data.summary }}</p>
     {% endif %}

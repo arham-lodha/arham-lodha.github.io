@@ -12,9 +12,9 @@ permalink: /blog/
     and eventually the rougher log entries that trace how ideas develop.
   </p>
   <nav class="archive-jump" aria-label="Archive filters">
-    <a href="/tags/notes/">Notes</a>
-    <a href="/tags/experiments/">Experiments</a>
-    <a href="/tags/meta/">Meta</a>
+    <a href="{{ '/tags/notes/' | url }}">Notes</a>
+    <a href="{{ '/tags/experiments/' | url }}">Experiments</a>
+    <a href="{{ '/tags/meta/' | url }}">Meta</a>
   </nav>
 </header>
 
@@ -28,7 +28,7 @@ permalink: /blog/
         <span class="post-status">{{ post.data.status }}</span>
       {% endif %}
     </div>
-    <a href="{{ post.url }}" class="post-list-title">{{ post.data.title }}</a>
+    <a href="{{ post.url | url }}" class="post-list-title">{{ post.data.title }}</a>
     {% if post.data.summary %}
       <p class="post-list-summary">{{ post.data.summary }}</p>
     {% endif %}
@@ -36,7 +36,7 @@ permalink: /blog/
     <span class="post-tags">
       {% for tag in post.data.tags %}
         {% if tag != "posts" %}
-          <a href="/tags/{{ tag }}/" class="tag">{{ tag }}</a>
+          <a href="{{ ('/tags/' + tag + '/') | url }}" class="tag">{{ tag }}</a>
         {% endif %}
       {% endfor %}
     </span>
