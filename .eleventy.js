@@ -104,6 +104,19 @@ module.exports = function (eleventyConfig) {
       });
   });
 
+  // Rewrite any remaining absolute paths in HTML that didn't go through the
+  // url filter — covers raw <script src="/..."> and <a href="/..."> in post content.
+  eleventyConfig.addTransform("pathPrefix", function (content, outputPath) {
+    if (!outputPath?.endsWith(".html")) return content;
+    const prefix = (process.env.ELEVENTY_PATH_PREFIX || "").replace(/\/$/, "");
+    if (!prefix) return content;
+    const rewrite = (attr, path) =>
+      path.startsWith(prefix) ? `${attr}="${path}"` : `${attr}="${prefix}${path}"`;
+    return content
+      .replace(/\bsrc="(\/[^"]+)"/g, (_, p) => rewrite("src", p))
+      .replace(/\bhref="(\/(?!\/)[^"]*)"/g, (_, p) => rewrite("href", p));
+  });
+
   return {
     pathPrefix: process.env.ELEVENTY_PATH_PREFIX || "/",
     dir: {
