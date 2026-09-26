@@ -20,7 +20,7 @@ permalink: /teaching/
       <span class="post-kind">{{ course.data.term }}</span>
       <span class="post-list-date">{{ course.data.role }}</span>
     </div>
-    <a href="{{ course.url }}" class="post-list-title">{{ course.data.title }}</a>
+    <a href="{{ course.url | url }}" class="post-list-title">{{ course.data.title }}</a>
     {% if course.data.instructor %}
       <p class="post-list-summary">{{ course.data.instructor }}</p>
     {% endif %}

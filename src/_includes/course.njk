@@ -34,7 +34,7 @@ layout: base.njk
   {% if syllabus %}
   <section class="course-section">
     <h2>Syllabus</h2>
-    <p><a href="{{ syllabus }}">Download syllabus (PDF)</a></p>
+    <p><a href="{{ syllabus | url }}">Download syllabus (PDF)</a></p>
   </section>
   {% endif %}
 
@@ -55,8 +55,8 @@ layout: base.njk
         <tr>
           <td>{{ d.week }}</td>
           <td>{{ d.title }}</td>
-          <td>{% if d.worksheet %}<a href="{{ d.worksheet }}">PDF</a>{% else %}—{% endif %}</td>
-          <td>{% if d.solutions %}<a href="{{ d.solutions }}">PDF</a>{% else %}—{% endif %}</td>
+          <td>{% if d.worksheet %}<a href="{{ d.worksheet | url }}">PDF</a>{% else %}—{% endif %}</td>
+          <td>{% if d.solutions %}<a href="{{ d.solutions | url }}">PDF</a>{% else %}—{% endif %}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -71,7 +71,7 @@ layout: base.njk
       {% for plan in lessonPlans %}
       <li>
         {% if plan.date %}<time class="course-plan-date">{{ plan.date | dateDisplay }}</time> · {% endif %}
-        {% if plan.file %}<a href="{{ plan.file }}">{{ plan.title }}</a>{% else %}{{ plan.title }}{% endif %}
+        {% if plan.file %}<a href="{{ plan.file | url }}">{{ plan.title }}</a>{% else %}{{ plan.title }}{% endif %}
       </li>
       {% endfor %}
     </ul>
@@ -85,6 +85,6 @@ layout: base.njk
   {% endif %}
 
   <nav class="post-nav">
-    <a href="/teaching/">← Teaching</a>
+    <a href="{{ '/teaching/' | url }}">← Teaching</a>
   </nav>
 </article>
