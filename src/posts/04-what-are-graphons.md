@@ -146,4 +146,4 @@ The next post picks up exactly there, in the limiting regime $\tau \to 0$ — th
 - <span id="ref-razborov-2008"></span>Razborov, Alexander A. "On the Minimal Density of Triangles in Graphs." *Combinatorics, Probability and Computing* 17, no. 4 (2008): 603--618.
 - <span id="ref-razborov-2013"></span>Razborov, Alexander A. "Flag Algebras: An Interim Report." In *The Mathematics of Paul Erdős II*, 207--232. Springer, 2013.
 
-<script src="/js/sketches/graphons.js"></script>
+<script src="{{ '/js/sketches/graphons.js' | url }}"></script>
